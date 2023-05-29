@@ -1,1 +1,2 @@
-{:main streats.core}
+{:main streats.core
+ :asset-path "/public/cljs-out/dev"}

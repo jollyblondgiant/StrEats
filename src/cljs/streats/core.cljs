@@ -4,11 +4,13 @@
 
 (enable-console-print!)
 
+(prn "Code Loads")
+
 
 (defn app []
-  (let []
-    (fn []
-      [:div "Howdy!"])))
+ [:p "hello there"])
 
-(defn ^:export run []
-  (rdom/render [app] (js/document.getElementById "app")))
+(defn ^:export main []
+  (rdom/render app (js/document.getElementById "app")))
+
+(main)

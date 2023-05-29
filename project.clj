@@ -13,6 +13,8 @@
                  ;;client deps
                  [reagent "1.2.0"]
                  [re-frame "1.3.0"]
+                 [cljsjs/react "17.0.2-0"]
+                 [cljsjs/react-dom "17.0.2-0"]
                  [arttuka/reagent-material-ui "5.11.12-0"]]
   :main ^:skip-aot streats.core
   :source-paths ["src/clj" "src/cljs"]
@@ -23,6 +25,8 @@
             "fig:dev" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev" "-r"]}
   :profiles {:dev {:dependencies  [[org.clojure/clojurescript "1.11.60"]
                                    [com.bhauman/figwheel-main "0.2.18"]
-                                   [com.bhauman/rebel-readline-cljs "0.1.4"]]}
+                                   [com.bhauman/rebel-readline-cljs "0.1.4"]]
+                   :resource-paths ["target"]
+                   :clean-targets ^{:protect false} ["target"]}
              :uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}})
