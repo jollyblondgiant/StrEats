@@ -10,7 +10,7 @@
 (defn app []
  [:p "hello there"])
 
-(defn ^:export main []
+(defn -main []
   (rdom/render app (js/document.getElementById "app")))
 
-(main)
+(-main)

@@ -1,2 +1,4 @@
-{:main streats.core
- :asset-path "/public/cljs-out/dev"}
+{:main streats.core 
+ :output-to "resources/public/js/app.js"
+:output-dir "resources/public/js/app"
+:asset-path "js/app"}

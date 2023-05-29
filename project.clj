@@ -18,8 +18,7 @@
                  [arttuka/reagent-material-ui "5.11.12-0"]]
   :main ^:skip-aot streats.core
   :source-paths ["src/clj" "src/cljs"]
-  :target-path "target/%s"
-  :resource-paths ["target" "resources"]
+  :resource-paths ["resources"]
   :css-dirs ["resources/public"]
   :aliases {"fig" ["trampoline" "run" "-m" "figwheel.main"]
             "fig:dev" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev" "-r"]}
