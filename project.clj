@@ -21,7 +21,7 @@
   :resource-paths ["resources"]
   :css-dirs ["resources/public"]
   :aliases {"fig" ["trampoline" "run" "-m" "figwheel.main"]
-            "fig:dev" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev" "-r"]}
+            "figwheel" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev" "-r"]}
   :profiles {:dev {:dependencies  [[org.clojure/clojurescript "1.11.60"]
                                    [com.bhauman/figwheel-main "0.2.18"]
                                    [com.bhauman/rebel-readline-cljs "0.1.4"]]

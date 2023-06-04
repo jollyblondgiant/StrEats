@@ -1,16 +1,20 @@
 (ns streats.core
-  (:require [reagent.core :as r]
-            [reagent.dom :as rdom]))
+  (:require [streats.index.views :refer [index]]
+            [reagent.core :as r]
+            [reagent.dom :as rdom]
+            [re-frame.core :refer [dispatch subscribe reg-event-db]]))
 
 (enable-console-print!)
 
-(prn "Code Loads")
+(defonce appdb {:page :index})
 
-
-(defn app []
- [:p "hello there"])
+(reg-event-db 
+ :init-db
+ (fn [_ _]
+   appdb))
 
 (defn -main []
-  (rdom/render app (js/document.getElementById "app")))
+  (dispatch [:init-db])
+  (rdom/render [index] (js/document.getElementById "app")))
 
 (-main)
