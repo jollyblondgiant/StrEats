@@ -15,7 +15,10 @@
                  [re-frame "1.3.0"]
                  [cljsjs/react "17.0.2-0"]
                  [cljsjs/react-dom "17.0.2-0"]
-                 [arttuka/reagent-material-ui "5.11.12-0"]]
+                 [arttuka/reagent-material-ui "5.11.12-0"]
+                 
+                 [cljsjs/openlayers "7.2.2-0"] ;;mapping
+                 ]
   :main ^:skip-aot streats.core
   :source-paths ["src/clj" "src/cljs"]
   :resource-paths ["resources"]

@@ -1,6 +1,7 @@
 (ns streats.index.views
   (:require [streats.index.events :as events]
             [streats.index.subs :as subs]
+            [streats.map.views :refer [map-component]]
             [re-frame.core :refer [subscribe dispatch]]
             [goog.string :as gstring]
             [goog.string.format]
@@ -35,7 +36,7 @@
 (defn index-page []
   (let [page (subscribe [::subs/page])]
     (fn []
-      [:div ])))
+      [map-component])))
 
 
 (defn index []
