@@ -5,12 +5,14 @@
 
 (enable-console-print!)
 
-(defonce appdb {:page :index})
+(defonce appdb {})
 
 (reg-event-db 
  :init-db
  (fn [_ _]
    appdb))
+
+
 
 (defn -main []
   (dispatch [:init-db])

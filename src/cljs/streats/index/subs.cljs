@@ -20,3 +20,8 @@
  ::show-profile?
  (fn [db _]
    (:show-profile? db)))
+
+(reg-sub
+ ::show-search?
+ (fn [db _]
+   (:show-search? db)))

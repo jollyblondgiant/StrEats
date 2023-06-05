@@ -1,3 +1,49 @@
 html{
     background-color: #dedede;
 }
+
+.primary   
+{
+    background-color: #982121;
+    color: white;
+}
+
+.secondary
+{
+    background-color: #FF611D;
+    color: black;
+}
+
+.warning{
+    background-color: #EBBD45;
+    color: black;
+}
+
+.success {
+    background-color: #38B4A0;
+    color: white;
+}
+
+div[class*="MuiBottomNavigation"] {
+    background-color: #982121;
+    color: white;
+}
+
+div[class*="MuiBottomNavigation"] > button {
+    color: inherit;
+}
+
+div[class*="MuiDrawer-paperAnchorLeft"] {
+    width: 80%;
+    background-color: #dedede;
+}
+
+div[class*="MuiDrawer-paperAnchorRight"] {
+    width: 80%;
+    background-color: #dedede;
+}
+
+div[class*="MuiDrawer-paperAnchorBottom"] {
+    height: 30%;
+    background-color: #dedede;
+}

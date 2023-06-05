@@ -30,3 +30,8 @@
  ::toggle-profile
  (fn [db _]
    (update db :show-profile? not)))
+
+(reg-event-db
+ ::toggle-search
+ (fn [db _]
+   (update db :show-search? not)))
