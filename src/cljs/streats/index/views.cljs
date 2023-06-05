@@ -63,14 +63,11 @@
                             (dispatch [::events/page page])
                             (dispatch [::events/toggle-menu])
                             (reset! menu-anchor nil))}
-               title])
-            ])
+               title])])
          [typography {:variant "h6"
                       :component :div
                       :sx {:flex-grow 1}}
           "StrEats"]
-         
-
          [icon-button {:color :inherit
                        :on-click (fn [e]
                                    (dispatch [::events/toggle-profile])
@@ -86,7 +83,7 @@
                                      :horizontal :right}
                   :open @(subscribe [::subs/show-profile?])
                   :on-close #(reset! profile-anchor nil)}
-            
+
             (when-not @(subscribe [::subs/user])
               [menu-item
                {:on-click (fn [_]
@@ -95,14 +92,14 @@
                             (dispatch [::events/login])
                             (reset! profile-anchor nil))}
                "Sign In"])
-             (when-not @(subscribe [::subs/user])
-               [menu-item
-                {:on-click (fn [_]
-                             (dispatch [::events/toggle-profile])
-                             (reset! profile-anchor nil))}
-                "Sign Up"])
+            (when-not @(subscribe [::subs/user])
+              [menu-item
+               {:on-click (fn [_]
+                            (dispatch [::events/toggle-profile])
+                            (reset! profile-anchor nil))}
+               "Sign Up"])
             (when @(subscribe [::subs/user])
-              [menu-item 
+              [menu-item
                {:on-click (fn [_]
                             (dispatch [::events/toggle-profile])
                             (dispatch [::events/page :profile])
@@ -114,8 +111,7 @@
                             (dispatch [::events/toggle-profile])
                             (dispatch [::events/logout])
                             (dispatch [::events/page :index]))}
-               "Log Out"])])
-         ]]])))
+               "Log Out"])])]]])))
 
 
 (defn index-page []
