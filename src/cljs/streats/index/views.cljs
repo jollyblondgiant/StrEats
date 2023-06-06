@@ -5,27 +5,22 @@
             [streats.map.views :refer [map-component]]
             [streats.profile.views :refer [profile]]
             [streats.login.views :refer [login-page]]
+            [streats.search.views :refer [search]]
             [reagent.core :as r]
             [re-frame.core :refer [subscribe dispatch]]
             [goog.string :as gstring]
             [goog.string.format]
-            [reagent-mui.material.app-bar :refer [app-bar]]
-            [reagent-mui.material.box :refer [box]]
-            [reagent-mui.material.toolbar :refer [toolbar]]
             [reagent-mui.material.typography :refer [typography]]
-            [reagent-mui.material.button :refer [button]]
-            [reagent-mui.material.icon-button :refer [icon-button]]
-            [reagent-mui.icons.menu :as menu-icon]
+            [reagent-mui.icons.menu :refer [menu] :rename {menu menu*}]
             [reagent-mui.icons.account-circle :refer [account-circle]]
-            [reagent-mui.icons.location-on :refer [location-on]]
-            [reagent-mui.icons.search :refer [search]]
-            [reagent-mui.material.menu :refer [menu]]
-            [reagent-mui.material.menu-item :refer [menu-item]]
+            [reagent-mui.icons.search :refer [search] :rename {search search*}]
             [reagent-mui.material.bottom-navigation :refer [bottom-navigation]]
             [reagent-mui.material.bottom-navigation-action :refer [bottom-navigation-action]]
             [reagent-mui.material.paper :refer [paper]]
             [reagent-mui.material.drawer :refer [drawer]]
-            [reagent-mui.material.box :refer [box]]))
+            [reagent-mui.material.container :refer [container]]
+            [reagent-mui.material.card :refer [card]]
+            [reagent-mui.material.card-content :refer [card-content]]))
 
 
 
@@ -46,10 +41,10 @@
                            :on-change (fn [e] (reset! selected e.target))}
         [bottom-navigation-action
          {:on-click #(dispatch [::events/toggle-menu])
-          :icon (r/as-element [menu-icon/menu])}]
+          :icon (r/as-element [menu*])}]
         [bottom-navigation-action
          {:on-click #(dispatch [::events/toggle-search])
-          :label (r/as-element [search])}]
+          :label (r/as-element [search*])}]
         [bottom-navigation-action
          {:on-click #(dispatch [::events/toggle-profile])
           :label (r/as-element [account-circle])}]]])))
@@ -64,14 +59,18 @@
 (defn side-menu
   []
   (fn []
-    [:<>
+    [container
+     {:class "menu"}
      (for [[page title] db/pages]
-      [typography
+       ^{:key page}
+      [card
+       {:class "menu-item primary"}
+       [typography
        {:sx {:color :white}
         :font-family "Helvetica Neue"
         :variant :h3
         :on-click #(dispatch [::events/page page])}
-       title])]))
+       title]])]))
 
 
 (defn index
@@ -81,20 +80,22 @@
         show-search? (subscribe [::subs/show-search?])
         show-menu? (subscribe [::subs/show-menu?])]
     (fn []
-      [:<>
-       ;;[navbar]
+      [container
        [drawer
-        {:anchor :left
+        {:class "left-drawer"
+         :anchor :left
          :on-click #(dispatch [::events/toggle-menu])
          :open @show-menu?}
         [side-menu]]
         [drawer
-         {:anchor :bottom
+         {:class "bottom-drawer small"
+          :anchor :bottom
           :on-click #(dispatch [::events/toggle-search])
           :open @show-search?}
-         "Search"]
+         [search]]
        [drawer
-        {:anchor :right
+        {:class "right-drawer"
+         :anchor :right
          :on-click #(dispatch [::events/toggle-profile])
          :open @show-profile?}
         [profile]]

@@ -15,4 +15,4 @@
 (defonce apollo {:username "apollo"
                  :id -1
                  :email "apollo@streats.com"
-                 :avatar "apollo.jpg"})
+                 :avatar "img/apollo.jpg"})

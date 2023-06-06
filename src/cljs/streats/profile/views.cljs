@@ -14,26 +14,46 @@
 
 (defn profile
   []
- (let [user (subscribe [::subs/user])] 
-  (fn []
-    [container
-     (if @user
-       [card
-        [card-media 
-         {:component :img
-          :image (:avatar @user)
-          :alt (:username @user)}]
-        [card-content
-         [typography
-          (:username @user)]
-         [typography 
-          {:on-click #(dispatch [::events/logout])}
-          "Sign Out"]]]
-       [card
-        [card-media
-         [account-circle]]
-        [card-content
-         {:on-click #(dispatch [::events/login])}
-         "Sign In"]
-        [card-content 
-         "Sign Up"]])])))
+  (let [user (subscribe [::subs/user])]
+    (fn []
+      [card
+       {:class :profile}
+       (if @user
+         [:<>
+          [card-media
+           {:class :avatar
+            :component :img
+            :image (:avatar @user)
+            :alt (:username @user)}]
+          [card-content
+           [typography
+            {:class :username}
+            (:username @user)]]
+          [card-content
+           [card
+            {:class "btn success"}
+            [typography
+             {:on-click #(dispatch [::events/page :profile])}
+             "Edit Profile"]]]
+          [card-content
+           [card
+            {:class "btn warning"}
+            [typography
+             {:on-click #(dispatch [::events/logout])}
+             "Sign Out"]]]]
+         [:<>
+          [card-media
+           [account-circle
+            {:sx {:height "250px"
+                  :width :auto}}]]
+          [card-content
+           [card
+            {:class "btn success"}
+            [typography
+             {:on-click #(dispatch [::events/login])}
+             "Sign In"]]]
+          [card-content
+           [card
+            {:class "btn warning"}
+            [typography
+             "Sign Up"]]]])])))

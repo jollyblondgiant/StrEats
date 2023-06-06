@@ -4,8 +4,8 @@ html{
 
 .primary   
 {
-    background-color: #982121;
-    color: white;
+    background-color: #982121 !important;
+    color: white m !important;
 }
 
 .secondary
@@ -15,13 +15,13 @@ html{
 }
 
 .warning{
-    background-color: #EBBD45;
-    color: black;
+    background-color: #EBBD45 !important;
+    color: black !important;
 }
 
 .success {
-    background-color: #38B4A0;
-    color: white;
+    background-color: #38B4A0 !important;
+    color: white !important;
 }
 
 div[class*="MuiBottomNavigation"] {
@@ -33,20 +33,71 @@ div[class*="MuiBottomNavigation"] > button {
     color: inherit;
 }
 
-div[class*="MuiDrawer-paperAnchorLeft"] {
+.left-drawer > .MuiPaper-root {
     width: 80%;
     background-color: #982121;
     border-radius: 0% 5% 5% 0%;
 }
 
-div[class*="MuiDrawer-paperAnchorRight"] {
+.right-drawer > .MuiPaper-root {
     width: 80%;
     background-color: #982121;
     border-radius: 5% 0% 0% 5%;
 }
 
-div[class*="MuiDrawer-paperAnchorBottom"] {
+.bottom-drawer.small > .MuiPaper-root {
     height: 30%;
     background-color: #982121;
     border-radius: 5% 5% 0% 0%;
 }
+
+.bottom-drawer.full > .MuiPaper-root {
+    height: 85%;
+    background-color: #982121;
+    border-radius: 5% 5% 0% 0%;
+}
+
+.profile {
+    padding: 5%;
+    margin: 5%;
+}
+
+.profile > .avatar{
+    border-radius: 100%;
+    height: 250px;
+    object-position: top;
+    object-fit: cover;
+}
+
+.profile > div > p.username {
+    width: fit-content;
+    margin: auto;
+}
+
+
+
+.profile> div > .btn {
+    width: 50%;
+    padding: 2.5%;
+    margin: auto;
+}
+
+.profile > div > .btn > p {
+    margin: auto;
+    width: fit-content;
+}
+
+.menu {
+    padding: 5%;
+}
+
+.menu > .menu-item {
+    margin: 2% auto;
+    box-shadow: none;
+}
+
+.menu > .menu-item > * {
+    margin: auto;
+    width: 75%;
+}
+

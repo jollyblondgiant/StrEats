@@ -15,3 +15,9 @@
  ::login
  (fn [db _]
    (assoc db :user db/apollo)))
+
+
+(reg-event-db
+ ::page
+ (fn [db [_ page]]
+   (assoc db :page page)))
