@@ -1,7 +1,9 @@
 (ns streats.index.views
   (:require [streats.index.events :as events]
             [streats.index.subs :as subs]
+            [streats.db :as db]
             [streats.map.views :refer [map-component]]
+            [streats.profile.views :refer [profile]]
             [streats.login.views :refer [login-page]]
             [reagent.core :as r]
             [re-frame.core :refer [subscribe dispatch]]
@@ -26,97 +28,8 @@
             [reagent-mui.material.box :refer [box]]))
 
 
-(def pages 
-  {:home "Home"
-   :search "Search"
-   :profile "Profile"
-   :review "Review"
-   :trucks "Trucks"
-   :truck "Truck"
-   :truck-menu "Menu"
-   :food-item "Dish"})
 
-(defn navbar 
-  []
-  (fn []
-    (let [menu-anchor (r/atom nil)
-          profile-anchor (r/atom nil)]
-      [box {:sx {:flex-grow 1}}
-       [app-bar {:position :static}
-        [toolbar {:class :primary}
-         [icon-button {:size :large
-                       :edge :start
-                       :color :inherit
-                       :aria-label "menu"
-                       :sx {:mr 2}
-                       :on-click (fn [e]
-                                   (dispatch [::events/toggle-menu])
-                                   (reset! menu-anchor e.target))}
-          [menu-icon/menu]]
-         (when @(subscribe [::subs/show-menu?])
-           [menu {:id :nav-menu
-                  :anchor-el @menu-anchor
-                  :keep-mounted true
-                  :anchor-origin {:vertical :top
-                                  :horizontal :left}
-                  :transform-origin {:vertical :top
-                                     :horizontal :left}
-                  :open @(subscribe [::subs/show-menu?])
-                  :on-close #(reset! menu-anchor nil)}
-            (for [[page title] pages]
-              [menu-item
-               {:on-click (fn [_]
-                            (dispatch [::events/page page])
-                            (dispatch [::events/toggle-menu])
-                            (reset! menu-anchor nil))}
-               title])])
-         [typography {:variant "h6"
-                      :component :div
-                      :sx {:flex-grow 1}}
-          "StrEats"]
-         [icon-button {:color :inherit
-                       :on-click (fn [e]
-                                   (dispatch [::events/toggle-profile])
-                                   (reset! profile-anchor e.target))}
-          [account-circle]]
-         (when @(subscribe [::subs/show-profile?])
-           [menu {:id :nav-menu
-                  :anchor-el @profile-anchor
-                  :keep-mounted true
-                  :anchor-origin {:vertical :top
-                                  :horizontal :right}
-                  :transform-origin {:vertical :top
-                                     :horizontal :right}
-                  :open @(subscribe [::subs/show-profile?])}
 
-            (when-not @(subscribe [::subs/user])
-              [menu-item
-               {:on-click (fn [_]
-                            (dispatch [::events/toggle-profile])
-                            (dispatch [::events/page :index])
-                            (dispatch [::events/login])
-                            (reset! profile-anchor nil))}
-               "Sign In"])
-            (when-not @(subscribe [::subs/user])
-              [menu-item
-               {:on-click (fn [_]
-                            (dispatch [::events/toggle-profile])
-                            (reset! profile-anchor nil))}
-               "Sign Up"])
-            (when @(subscribe [::subs/user])
-              [menu-item
-               {:on-click (fn [_]
-                            (dispatch [::events/toggle-profile])
-                            (dispatch [::events/page :profile])
-                            (reset! profile-anchor nil))}
-               "Profile"])
-            (when @(subscribe [::subs/user])
-              [menu-item
-               {:on-click (fn [_]
-                            (dispatch [::events/toggle-profile])
-                            (dispatch [::events/logout])
-                            (dispatch [::events/page :index]))}
-               "Log Out"])])]]])))
 
 
 (defn navbot
@@ -148,6 +61,18 @@
     (fn []
       [map-component])))
 
+(defn side-menu
+  []
+  (fn []
+    [:<>
+     (for [[page title] db/pages]
+      [typography
+       {:sx {:color :white}
+        :font-family "Helvetica Neue"
+        :variant :h3
+        :on-click #(dispatch [::events/page page])}
+       title])]))
+
 
 (defn index
   []
@@ -162,7 +87,7 @@
         {:anchor :left
          :on-click #(dispatch [::events/toggle-menu])
          :open @show-menu?}
-       "Menu"]
+        [side-menu]]
         [drawer
          {:anchor :bottom
           :on-click #(dispatch [::events/toggle-search])
@@ -172,9 +97,9 @@
         {:anchor :right
          :on-click #(dispatch [::events/toggle-profile])
          :open @show-profile?}
-        "Profile"]
+        [profile]]
        (condp = @page
          :index [index-page]
          :login [login-page]
-         [:div (gstring/format "This is the %s page" (get pages @page "Blank"))])
+         [:div (gstring/format "This is the %s page" (get db/pages @page "Blank"))])
        [navbot]])))

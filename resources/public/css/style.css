@@ -35,15 +35,18 @@ div[class*="MuiBottomNavigation"] > button {
 
 div[class*="MuiDrawer-paperAnchorLeft"] {
     width: 80%;
-    background-color: #dedede;
+    background-color: #982121;
+    border-radius: 0% 5% 5% 0%;
 }
 
 div[class*="MuiDrawer-paperAnchorRight"] {
     width: 80%;
-    background-color: #dedede;
+    background-color: #982121;
+    border-radius: 5% 0% 0% 5%;
 }
 
 div[class*="MuiDrawer-paperAnchorBottom"] {
     height: 30%;
-    background-color: #dedede;
+    background-color: #982121;
+    border-radius: 5% 5% 0% 0%;
 }
