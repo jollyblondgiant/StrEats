@@ -69,7 +69,9 @@
        {:sx {:color :white}
         :font-family "Helvetica Neue"
         :variant :h3
-        :on-click #(dispatch [::events/page page])}
+        :on-click #(do
+                     (dispatch [::events/toggle-menu])
+                     (dispatch [::events/page page]))}
        title]])]))
 
 
@@ -84,19 +86,24 @@
        [drawer
         {:class "left-drawer"
          :anchor :left
-         :on-click #(dispatch [::events/toggle-menu])
+         :on-click (fn [e] (when (->> e.target.className (re-find #"backdrop") some?)
+                              (dispatch [::events/toggle-menu])))
          :open @show-menu?}
         [side-menu]]
-        [drawer
-         {:class "bottom-drawer small"
-          :anchor :bottom
-          :on-click #(dispatch [::events/toggle-search])
-          :open @show-search?}
-         [search]]
+       [drawer
+        {:class "bottom-drawer small"
+         :anchor :bottom
+         :on-click (fn [e] 
+                     (when (->> e.target.className (re-find #"backdrop") some?
+                                (and (string? e.target.className)))
+                       (dispatch [::events/toggle-search])))
+         :open @show-search?}
+        [search]]
        [drawer
         {:class "right-drawer"
          :anchor :right
-         :on-click #(dispatch [::events/toggle-profile])
+        :on-click (fn [e] (when (->> e.target.className (re-find #"backdrop") some?)
+                            (dispatch [::events/toggle-profile])))
          :open @show-profile?}
         [profile]]
        (condp = @page

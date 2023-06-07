@@ -2,11 +2,7 @@
   (:require [re-frame.core :refer [subscribe dispatch]]
             [streats.profile.subs :as subs]
             [streats.profile.events :as events]
-            [reagent-mui.material.box :refer [box]]
             [reagent-mui.material.typography :refer [typography]]
-            [reagent-mui.material.button :refer [button]]
-            [reagent-mui.material.icon-button :refer [icon-button]]
-            [reagent-mui.material.container :refer [container]]
             [reagent-mui.material.card :refer [card]]
             [reagent-mui.material.card-media :refer [card-media]]
             [reagent-mui.material.card-content :refer [card-content]]
@@ -33,7 +29,9 @@
            [card
             {:class "btn success"}
             [typography
-             {:on-click #(dispatch [::events/page :profile])}
+             {:on-click #(do
+                           (dispatch [::events/toggle-profile])
+                           (dispatch [::events/page :profile]))}
              "Edit Profile"]]]
           [card-content
            [card

@@ -14,14 +14,14 @@
 (reg-sub
  ::show-menu?
  (fn [db _]
-   (:show-menu? db)))
+   (:show-menu? db false)))
 
 (reg-sub
  ::show-profile?
  (fn [db _]
-   (:show-profile? db)))
+   (:show-profile? db false)))
 
 (reg-sub
  ::show-search?
  (fn [db _]
-   (:show-search? db)))
+   (:show-search? db false)))

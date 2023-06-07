@@ -21,3 +21,8 @@
  ::page
  (fn [db [_ page]]
    (assoc db :page page)))
+
+(reg-event-db
+ ::toggle-profile
+ (fn [db _]
+   (update db :show-profile? not)))

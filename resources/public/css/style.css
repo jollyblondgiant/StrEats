@@ -101,3 +101,13 @@ div[class*="MuiBottomNavigation"] > button {
     width: 75%;
 }
 
+.search {
+    padding: 5%;
+    margin: 5%;
+}
+
+.search-key {
+    display: inline-flex;
+    padding: 2%;
+    background-color: #dedede !important;
+}
