@@ -111,3 +111,15 @@ div[class*="MuiBottomNavigation"] > button {
     padding: 2%;
     background-color: #dedede !important;
 }
+
+.expand-search {
+    width: fit-content;
+    margin: auto;
+    background-color: transparent !important ;
+}
+
+.minimize-trucks {
+    width: fit-content;
+    margin: auto;
+    background-color: transparent !important;
+}

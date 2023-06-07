@@ -3,14 +3,12 @@
 (defonce appdb {})
 
 (defonce pages
-  {:home "Home"
-   :search "Search"
-   :profile "Profile"
-   :review "Review"
-   :trucks "Trucks"
-   :truck "Truck"
-   :truck-menu "Menu"
-   :food-item "Dish"})
+  {:review "Leave a Review"
+   :trucks "View Trucks"
+   :truck "View a Truck"
+   :truck-menu "Menu by Truck"
+   :food-item "Dish"
+   })
 
 (defonce apollo {:username "apollo"
                  :id -1

@@ -25,3 +25,8 @@
  ::show-search?
  (fn [db _]
    (:show-search? db false)))
+
+(reg-sub
+ ::show-trucks?
+ (fn [db _]
+   (:show-trucks? db false)))

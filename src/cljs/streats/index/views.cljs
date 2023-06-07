@@ -6,6 +6,7 @@
             [streats.profile.views :refer [profile]]
             [streats.login.views :refer [login-page]]
             [streats.search.views :refer [search]]
+            [streats.trucks.views :refer [trucks]]
             [reagent.core :as r]
             [re-frame.core :refer [subscribe dispatch]]
             [goog.string :as gstring]
@@ -20,7 +21,7 @@
             [reagent-mui.material.drawer :refer [drawer]]
             [reagent-mui.material.container :refer [container]]
             [reagent-mui.material.card :refer [card]]
-            [reagent-mui.material.card-content :refer [card-content]]))
+           ))
 
 
 
@@ -80,7 +81,8 @@
   (let [page (subscribe [::subs/page])
         show-profile? (subscribe [::subs/show-profile?])
         show-search? (subscribe [::subs/show-search?])
-        show-menu? (subscribe [::subs/show-menu?])]
+        show-menu? (subscribe [::subs/show-menu?])
+        show-trucks? (subscribe [::subs/show-trucks?])]
     (fn []
       [container
        [drawer
@@ -100,11 +102,20 @@
          :open @show-search?}
         [search]]
        [drawer
+        {:class "bottom-drawer full"
+         :anchor :bottom
+         :on-click (fn [e]
+                     (when (->> e.target.className (re-find #"backdrop") some?
+                                (and (string? e.target.className)))
+                       (dispatch [::events/toggle-trucks])))
+         :open @show-trucks?}
+        [trucks]]
+       [drawer
         {:class "right-drawer"
          :anchor :right
-        :on-click (fn [e] (when (->> e.target.className (re-find #"backdrop") some?)
-                            (dispatch [::events/toggle-profile])))
-         :open @show-profile?}
+         :on-click (fn [e] (when (->> e.target.className (re-find #"backdrop") some?)
+                             (dispatch [::events/toggle-profile])))
+         :open @show-profile?} 
         [profile]]
        (condp = @page
          :index [index-page]

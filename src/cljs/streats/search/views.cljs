@@ -1,8 +1,8 @@
 (ns streats.search.views
   (:require [streats.search.events :as events]
             [streats.search.subs :as subs]
+            [re-frame.core :refer [subscribe dispatch]]
             [reagent.core :as r]
-            [reagent.core :refer [as-element]]
             [reagent-mui.material.container :refer [container]]
             [reagent-mui.material.card :refer [card]]
             [reagent-mui.material.input :refer [input]]
@@ -11,7 +11,9 @@
             [reagent-mui.material.input-adornment :refer [input-adornment]]
             [reagent-mui.material.icon-button :refer [icon-button]]
             [reagent-mui.icons.search :refer [search] :rename {search search-icon}]
-            [reagent-mui.icons.close :refer [close]]))
+            [reagent-mui.icons.close :refer [close]]
+            [reagent-mui.icons.local-shipping :refer [local-shipping]]
+            [reagent-mui.material.icon-button :refer [icon-button]]))
 
 
 
@@ -20,10 +22,17 @@
   []
 
   (let [radius (r/atom [0 5])
-        search-keys (r/atom ["tacos" "poutine" "sno cones"])
+        search-keys (r/atom [])
         search-input (r/atom "")]
     (fn []
       [container
+      [card
+       {:class "expand-search"}
+       [icon-button
+        {:on-click #(do
+                      (dispatch [::events/toggle-search])
+                      (dispatch [::events/toggle-trucks]))}
+       [local-shipping]]]
        [card
         {:class "search"}
         [input
@@ -31,7 +40,7 @@
           :full-width true
           :value @search-input
           :on-change #(reset! search-input (-> % .-target .-value))
-          :end-adornment (as-element [input-adornment {:position :end
+          :end-adornment (r/as-element [input-adornment {:position :end
                                                        :on-click #(reset! search-keys (conj @search-keys @search-input))}
                                       [icon-button [search-icon]]])}]
         [slider

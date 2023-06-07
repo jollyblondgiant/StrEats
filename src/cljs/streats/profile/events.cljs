@@ -26,3 +26,8 @@
  ::toggle-profile
  (fn [db _]
    (update db :show-profile? not)))
+
+(reg-event-db
+ ::toggle-trucks
+ (fn [db _]
+   (update db :show-trucks? not)))

@@ -21,3 +21,8 @@
  ::toggle-search
  (fn [db _]
    (update db :show-search? not)))
+
+(reg-event-db
+ ::toggle-trucks
+ (fn [db _]
+   (update db :show-trucks? not)))
