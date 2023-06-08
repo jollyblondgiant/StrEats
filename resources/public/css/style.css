@@ -158,3 +158,6 @@ div[class*="MuiBottomNavigation"] > button {
     height: 100vh;
 }
 
+#app-root {
+    padding: 0 !important;
+}

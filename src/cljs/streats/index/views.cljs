@@ -2,7 +2,7 @@
   (:require [streats.index.events :as events]
             [streats.index.subs :as subs]
             [streats.db :as db]
-            [streats.map.views :refer [map-component]]
+            [streats.map.views :refer [map-page]]
             [streats.profile.views :refer [profile]]
             [streats.login.views :refer [login-page]]
             [streats.search.views :refer [search]]
@@ -59,12 +59,6 @@
           :label (r/as-element [account-circle])}]]])))
 
 
-(defn index-page
-  []
-  (let [page (subscribe [::subs/page])]
-    (fn []
-      [map-component])))
-
 (defn side-menu
   []
   (fn []
@@ -94,6 +88,7 @@
         app-data (subscribe [::subs/data-loading?])]
     (fn []
       [container
+       {:id "app-root"}
        [drawer
         {:class "bottom-drawer-splash"
          :anchor :bottom
@@ -133,7 +128,7 @@
          :open @show-profile?}
         [profile]]
        (condp = @page
-         :index [index-page]
+         :map [map-page]
          :login [login-page]
          [:div (gstring/format "This is the %s page" (get db/pages @page "Blank"))])
        [navbot]])))
