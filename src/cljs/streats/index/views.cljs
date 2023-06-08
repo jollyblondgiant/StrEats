@@ -21,12 +21,20 @@
             [reagent-mui.material.drawer :refer [drawer]]
             [reagent-mui.material.container :refer [container]]
             [reagent-mui.material.card :refer [card]]
-           ))
+            [reagent-mui.material.card-media :refer [card-media]]))
 
 
-
-
-
+(defn splash-page
+  []
+  (fn []
+    [container
+     {:id :splash-page}
+     [card 
+      {:class "splash-card"}
+      [card-media
+       [:img 
+        {:src "img/logo.png"
+         :alt "streats logo"}]]]]))
 
 (defn navbot
   []
@@ -82,20 +90,27 @@
         show-profile? (subscribe [::subs/show-profile?])
         show-search? (subscribe [::subs/show-search?])
         show-menu? (subscribe [::subs/show-menu?])
-        show-trucks? (subscribe [::subs/show-trucks?])]
+        show-trucks? (subscribe [::subs/show-trucks?])
+        app-data (subscribe [::subs/data-loading?])]
     (fn []
       [container
+       [drawer
+        {:class "bottom-drawer-splash"
+         :anchor :bottom
+
+         :open @app-data}
+        [splash-page]]
        [drawer
         {:class "left-drawer"
          :anchor :left
          :on-click (fn [e] (when (->> e.target.className (re-find #"backdrop") some?)
-                              (dispatch [::events/toggle-menu])))
+                             (dispatch [::events/toggle-menu])))
          :open @show-menu?}
         [side-menu]]
        [drawer
         {:class "bottom-drawer small"
          :anchor :bottom
-         :on-click (fn [e] 
+         :on-click (fn [e]
                      (when (->> e.target.className (re-find #"backdrop") some?
                                 (and (string? e.target.className)))
                        (dispatch [::events/toggle-search])))
@@ -115,7 +130,7 @@
          :anchor :right
          :on-click (fn [e] (when (->> e.target.className (re-find #"backdrop") some?)
                              (dispatch [::events/toggle-profile])))
-         :open @show-profile?} 
+         :open @show-profile?}
         [profile]]
        (condp = @page
          :index [index-page]

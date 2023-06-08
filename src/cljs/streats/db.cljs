@@ -1,6 +1,6 @@
 (ns streats.db)
 
-(defonce appdb {})
+(defonce appdb {:loaded true})
 
 (defonce pages
   {:review "Leave a Review"

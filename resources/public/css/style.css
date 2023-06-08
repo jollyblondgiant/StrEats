@@ -10,7 +10,7 @@ html{
 
 .secondary
 {
-    background-color: #FF611D;
+    background-color: #FFAE42;
     color: black;
 }
 
@@ -55,6 +55,11 @@ div[class*="MuiBottomNavigation"] > button {
     height: 85%;
     background-color: #982121;
     border-radius: 5% 5% 0% 0%;
+}
+
+.bottom-drawer.full > .MuiPaper-root {
+    height: 100%;
+    
 }
 
 .profile {
@@ -123,3 +128,33 @@ div[class*="MuiBottomNavigation"] > button {
     margin: auto;
     background-color: transparent !important;
 }
+
+.splash-card {
+    padding: 5%;
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    width: fit-content;
+    border-radius: 33% !important;
+    background: transparent !important;
+}
+
+@keyframes burger-flip{
+  from {rotate: -15deg;}
+  to {rotate: -375deg;}
+  
+}
+
+
+.splash-card img {
+    rotate: -15deg;
+    color: white;
+    animation-delay: 500ms !important;
+    animation: burger-flip 2.5s infinite;
+}
+
+#splash-page {
+    background-image: linear-gradient(#982121, #FFAE42);
+    height: 100vh;
+}
+

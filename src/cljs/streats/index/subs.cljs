@@ -30,3 +30,8 @@
  ::show-trucks?
  (fn [db _]
    (:show-trucks? db false)))
+
+(reg-sub
+ ::data-loading?
+ (fn [db _]
+   (contains? db :loading)))
