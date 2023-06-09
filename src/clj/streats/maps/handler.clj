@@ -1,7 +1,6 @@
 (ns streats.maps.handler
-  (:require [cheshire.core :refer [generate-string]]
-            [ring.util.response :refer [bad-request]]
-            [environ.core :refer [env]]))
+  (:require [ring.util.response :refer [bad-request]]
+            [streats.environ :refer [env]]))
 
 (defn gmap-string
   [_]

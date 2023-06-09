@@ -1,4 +1,4 @@
-{:main streats.core 
+{:main streats.core
  :output-to "resources/public/js/app.js"
-:output-dir "resources/public/js/app"
-:asset-path "js/app"}
+ :output-dir "resources/public/js/app"
+ :asset-path "js/app"}

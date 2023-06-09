@@ -5,7 +5,7 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   
   :dependencies [[org.clojure/clojure "1.10.3"]
-                 [environ "1.2.0"]
+                 [aero "1.1.6"]
 
                  ;;server deps
                  [metosin/reitit "0.7.0-alpha4"]
@@ -22,14 +22,16 @@
                  [arttuka/reagent-material-ui "5.11.12-0"]
                  [cljsjs/google-maps "3.18-1"]]
   
-  :plugins [[lein-environ "1.2.0"]]
   :main ^:skip-aot streats.core
   :source-paths ["src/clj" "src/cljs"]
   :resource-paths ["resources"]
   :css-dirs ["resources/public"]
   :aliases {"fig" ["trampoline" "run" "-m" "figwheel.main"]
             "figwheel" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev" "-r"]}
-  :profiles {:dev {:dependencies  [[org.clojure/clojurescript "1.11.60"]
+  :profiles {:dev {:env {:gmaps-api-key "AIzaSyDl49JCEdng2k_HwA-aU8CvVcwQ98843nQ"
+                         :server-port 3000
+                         :server-url "127.0.0.1"}
+                   :dependencies  [[org.clojure/clojurescript "1.11.60"]
                                    [com.bhauman/figwheel-main "0.2.18"]
                                    [com.bhauman/rebel-readline-cljs "0.1.4"]]
                    :resource-paths ["target"]
