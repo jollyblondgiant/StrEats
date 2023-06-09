@@ -17,17 +17,10 @@
        (dissoc :loading)
        (assoc :page :map))))
 
-(reg-event-db
- :get-mapstring
- (fn [db _]
-   (when-let [mapstring (db/map-string)]
-     (assoc db :gmaps-api-string mapstring))))
-
 (reg-event-db 
  :init-db
  (fn [_ _]
-   (dispatch [:get-mapstring])
-
+   (db/get-mapstring)
    {:loading true}))
 
 
@@ -36,10 +29,4 @@
   (rdom/render [index] (js/document.getElementById "app")))
 
 (-main)
-
-(defn get-mapstring
-  []
-  (async/go (let [req "http://localhost:3000/map"
-                  {:keys [status body] :as resp} (async/<! (http/get req))]
-              (prn resp))))
 

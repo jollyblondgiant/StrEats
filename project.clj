@@ -10,9 +10,10 @@
                  ;;server deps
                  [metosin/reitit "0.7.0-alpha4"]
                  [ring/ring-core "1.10.0"]
+                 [metosin/ring-http-response "0.9.3"]
                  [ring/ring-jetty-adapter "1.10.0"]
                  [cheshire "5.11.0"]
-                
+                 
                  ;;client deps
                  [reagent "1.2.0"]
                  [cljs-http "0.1.46"]

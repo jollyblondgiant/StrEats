@@ -57,7 +57,7 @@ div[class*="MuiBottomNavigation"] > button {
     border-radius: 5% 5% 0% 0%;
 }
 
-.bottom-drawer.full > .MuiPaper-root {
+.bottom-drawer.splash > .MuiPaper-root {
     height: 100%;
     
 }
