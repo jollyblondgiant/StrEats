@@ -1,3 +1,6 @@
+Installation:
+make sure you have leiningen installed.
+
 to start:
 
 lein run
@@ -6,17 +9,12 @@ in a new terminal:
 
 lein fig
 
-
-in the browser:
-navigate to localhost:9500
-
-in another terminal window:
-curl 127.0.0.1:3000
-
+DEVELOPMENT:
+first terminal: lein repl
+new terminal: lein figwheel
 
 TODO:
 pages layouts:
-  - splash screen
   - login screen        -|
   - forgot login screen  |- does auth0 plugin cover these 3?
   - sign up page        -|
