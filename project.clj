@@ -28,10 +28,7 @@
   :css-dirs ["resources/public"]
   :aliases {"fig" ["trampoline" "run" "-m" "figwheel.main"]
             "figwheel" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev" "-r"]}
-  :profiles {:dev {:env {:gmaps-api-key "AIzaSyDl49JCEdng2k_HwA-aU8CvVcwQ98843nQ"
-                         :server-port 3000
-                         :server-url "127.0.0.1"}
-                   :dependencies  [[org.clojure/clojurescript "1.11.60"]
+  :profiles {:dev {:dependencies  [[org.clojure/clojurescript "1.11.60"]
                                    [com.bhauman/figwheel-main "0.2.18"]
                                    [com.bhauman/rebel-readline-cljs "0.1.4"]]
                    :resource-paths ["target"]
