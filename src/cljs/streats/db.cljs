@@ -1,8 +1,7 @@
 (ns streats.db
-  (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [cljs-http.client :as http]
-            [cljs.core.async :refer [<!]]
-
+            [cljs.core.async :as async]
+            [re-frame.core :refer [dispatch reg-event-db]]
             [goog.string :as gstring]
             [goog.string.format]))
 
@@ -22,10 +21,16 @@
                  :email "apollo@streats.com"
                  :avatar "img/apollo.jpg"})
 
-(defn map-string
-  []
-  (let [{:keys [server-port server-url]} {:server-port 3000 :server-url "127.0.0.1"}
-        req (str server-url ":" server-port "/map")
-        resp (http/get req)]
-    resp))
 
+(defn get-mapstring []
+  (async/go
+    (let [response (async/<! (http/get "http://localhost:3000/map"))]
+      (dispatch [:map-response response]))))
+
+(reg-event-db
+ :map-response
+ (fn [db [_ response]]
+   (prn response)
+   (-> db
+       (assoc  :gmaps-api-key (:body response))
+       (dissoc :loading))))
