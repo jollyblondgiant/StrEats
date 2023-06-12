@@ -9,7 +9,7 @@ lein run
 
 in a new terminal:
 
-lein fig
+shadow-cljs watch app
 
 DEVELOPMENT:
 first terminal: lein repl
