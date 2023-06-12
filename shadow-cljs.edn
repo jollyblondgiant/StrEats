@@ -1,0 +1,15 @@
+;; shadow-cljs configuration
+{:lein true
+ :source-paths
+ ["src/cljs"]
+
+ :dependencies
+ [[org.clojure/clojurescript "1.11.60"]]
+
+ :builds
+ {:app {:target :browser
+        :output-dir "target/public/cljs-out/dev"
+        :asset-path "cljs-out/dev"
+        :repl-init-ns streats.core
+        :repl-pprint true
+        :modules {:main {:entries [streats.core]}}}}}
