@@ -1,7 +1,7 @@
 Installation:
 prerequisites:
   - leiningen
-  - npm & npx
+  - node, npm & npx
 
 to start:
 npm install
