@@ -1,6 +1,8 @@
 ;;^{:auto-bundle :webpack}
 {:main streats.core
  :output-to "target/public/cljs-out/dev/main.js"
- :bundle-cmd {:none ["npx" "webpack" "--mode=development" "--entry" :output-to
-                     "--output-path" :final-output-dir
-                     "--output-filename" :final-output-filename]}}
+ ;:target :bundle
+ ;:bundle-cmd {:none ["npx" "webpack" "--mode=development" "--entry" :output-to
+ ;                    "--output-path" :final-output-dir
+ ;                    "--output-filename" :final-output-filename]}
+ }

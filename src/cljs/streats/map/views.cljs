@@ -6,7 +6,6 @@
            [reagent-mui.material.container :refer [container]]
            [reagent-mui.material.card :refer [card]]
            [reagent-mui.material.card-media :refer [card-media]]
-          
            ;[googlemaps/js-api-loader]
            ))
 
