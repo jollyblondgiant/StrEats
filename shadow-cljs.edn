@@ -1,14 +1,12 @@
 ;; shadow-cljs configuration
-{:lein true
- :source-paths
- ["src/cljs"]
+{:lein {:profile "+dev"}
 
- :dependencies
- [[org.clojure/clojurescript "1.11.60"]]
-
+:dev-http {9500 "resources/public"}
+ 
  :builds
  {:app {:target :browser
-        :output-dir "target/public/cljs-out/dev"
+        :output-dir "resources/public/js/app"
+        :output-to "resources/public/js/app/main.js"
         :asset-path "cljs-out/dev"
         :repl-init-ns streats.core
         :repl-pprint true
