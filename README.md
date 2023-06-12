@@ -1,8 +1,10 @@
 Installation:
-make sure you have leiningen installed.
+prerequisites:
+  - leiningen
+  - npm & npx
 
 to start:
-
+npm install
 lein run
 
 in a new terminal:

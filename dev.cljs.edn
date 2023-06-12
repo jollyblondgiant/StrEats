@@ -1,4 +1,6 @@
+;;^{:auto-bundle :webpack}
 {:main streats.core
- :output-to "resources/public/js/app.js"
- :output-dir "resources/public/js/app"
- :asset-path "js/app"}
+ :output-to "target/public/cljs-out/dev/main.js"
+ :bundle-cmd {:none ["npx" "webpack" "--mode=development" "--entry" :output-to
+                     "--output-path" :final-output-dir
+                     "--output-filename" :final-output-filename]}}

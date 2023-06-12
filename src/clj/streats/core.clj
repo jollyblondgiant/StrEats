@@ -6,12 +6,6 @@
              [streats.environ :refer [env]]))
 
 
-(defn wrap-debug
-  [handler]
-  (println handler)
-  handler)
-
-
 (defn wrap-cors* [handler ]
   (wrap-cors handler
              :access-control-allow-origin [#"http://localhost:9500"]

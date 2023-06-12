@@ -128,7 +128,6 @@
          :open @show-profile?}
         [profile]]
        (condp = @page
-         :map [map-page]
          :login [login-page]
-         [:div (gstring/format "This is the %s page" (get db/pages @page "Blank"))])
+         [map-page])
        [navbot]])))

@@ -30,7 +30,6 @@
 (reg-event-db
  :map-response
  (fn [db [_ response]]
-   (prn response)
    (-> db
        (assoc  :gmaps-api-key (:body response))
        (dissoc :loading))))
