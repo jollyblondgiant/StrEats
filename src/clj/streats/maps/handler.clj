@@ -1,9 +1,11 @@
 (ns streats.maps.handler
   (:require [ring.util.response :refer [bad-request]]
-            [streats.environ :refer [env]]))
+            [streats.environ :refer [env]]
+            [cheshire.core :as json]))
 
 (defn gmap-string
   [_]
+  
   {:status 200
    :body (:gmaps-api-key env)})
 

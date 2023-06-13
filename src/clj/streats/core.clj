@@ -3,10 +3,11 @@
   (:require  [ring.adapter.jetty :refer [run-jetty]]
              [streats.routes :refer [app-routes]]
              [ring.middleware.cors :refer [wrap-cors]]
+             [ring.middleware.reload :refer [wrap-reload]]
              [streats.environ :refer [env]]))
 
 
-(defn wrap-cors* [handler ]
+(defn wrap-cors* [handler]
   (wrap-cors handler
              :access-control-allow-origin [#"http://localhost:9500"]
              :access-control-allow-methods [:get :post :put :delete]
@@ -19,7 +20,6 @@
              :access-control-allow-credentials "true"))
 
 (defn -main
-  "I don't do a whole lot ... yet."
   [& _]
   (let [port (Integer. (:server-port env 3000))]
     (-> app-routes
@@ -27,7 +27,16 @@
         (run-jetty {:port port :join? false}))
     (println "starting server on port:" port)))
 
+(defn -main:dev
+  [& _]
+  (let [port (Integer. (:server-port env 3000))]
+    (-> app-routes
+        wrap-cors*
+        wrap-reload
+        (run-jetty {:port port :join? false}))
+    (println "starting development server on port:" port)))
+
+
 
 (comment
-  (run-jetty (wrap-cors* app-routes) {:port 3000 :join? false})
-  )
+  (run-jetty (wrap-cors* app-routes) {:port 3000 :join? false}))

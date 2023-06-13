@@ -24,7 +24,7 @@
 
 (defn get-mapstring []
   (async/go
-    (let [response (async/<! (http/get "http://localhost:3000/map"))]
+    (let [response (async/<! (http/get "http://localhost:3000/api/map"))]
       (dispatch [:map-response response]))))
 
 (reg-event-db

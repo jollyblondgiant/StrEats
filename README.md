@@ -7,15 +7,11 @@ on first startup:
   - npm install
 
 to start:
-lein run -- starts the server on port 3000 (or whatever you configure in local config.edn)
-
+shadow-cljs watch app
 in a new terminal:
 
-shadow-cljs watch app -- starts the client on port 9500
 
-DEVELOPMENT:
-first terminal: lein repl
-new terminal: lein figwheel
+lein dev  -- starts the server on port 3000 (or whatever you configure in local config.edn)
 
 TODO:
 serve index.html via hiccup delivered by server
