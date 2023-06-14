@@ -4,6 +4,7 @@
              [streats.routes :refer [app-routes]]
              [ring.middleware.cors :refer [wrap-cors]]
              [ring.middleware.reload :refer [wrap-reload]]
+             [ring.middleware.resource :refer [wrap-resource]]
              [streats.environ :refer [env]]))
 
 
@@ -24,6 +25,7 @@
   (let [port (Integer. (:server-port env 3000))]
     (-> app-routes
         wrap-cors*
+        (wrap-resource "public")
         (run-jetty {:port port :join? false}))
     (println "starting server on port:" port)))
 
@@ -32,6 +34,7 @@
   (let [port (Integer. (:server-port env 3000))]
     (-> app-routes
         wrap-cors*
+        (wrap-resource "public")
         wrap-reload
         (run-jetty {:port port :join? false}))
     (println "starting development server on port:" port)))
