@@ -9,12 +9,10 @@ on first startup:
 to start:
 shadow-cljs watch app
 in a new terminal:
-
-
 lein dev  -- starts the server on port 3000 (or whatever you configure in local config.edn)
+open browser window to localhost:{{port}}
 
 TODO:
-serve index.html via hiccup delivered by server
 pages layouts:
   - login screen        -|
   - forgot login screen  |- does auth0 plugin cover these 3?

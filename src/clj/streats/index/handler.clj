@@ -13,6 +13,7 @@
            [:title "StrEats"]]
           [:body
            [:div#app]
+           [:script {:src (str "https://maps.googleapis.com/maps/api/js?key=" (:gmaps-api-key env))}]
            (include-js "/js/app/main.js")])})
 
 (defn index-handler

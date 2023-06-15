@@ -10,7 +10,7 @@
 
 (defn wrap-cors* [handler]
   (wrap-cors handler
-             :access-control-allow-origin [#"http://localhost:9500"]
+             :access-control-allow-origin [#".*"]
              :access-control-allow-methods [:get :post :put :delete]
              :access-control-allow-headers #{"accept"
                                              "accept-encoding"
