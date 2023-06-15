@@ -8,16 +8,21 @@
             [reagent-mui.material.card-media :refer [card-media]]))
 
 
+(defn map-did-mount
+  []
+  (let [map-canvas (.getElementById js/document "map")
+        map-options #js{"center" (js/google.maps.LatLng. 37 115)
+                        "zoom" 12}]
+    (js/google.maps.Map. map-canvas map-options)))
 
+(defn map-canvas
+  []
+  [:div#map.map])
 
 (defn map-page
   []
   (let [map-key (subscribe [::subs/map-key])]
-    (fn []
-      [container
-       {:id "map-page"}
-       (when @map-key
-         [:<>
-          ]
-         )])))
+    (r/create-class
+     {:reagent-render map-canvas
+      :component-did-mount map-did-mount})))
 
