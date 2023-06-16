@@ -8,21 +8,49 @@
             [reagent-mui.material.card-media :refer [card-media]]))
 
 
-(defn map-did-mount
-  []
-  (let [map-canvas (.getElementById js/document "map")
-        map-options #js{"center" (js/google.maps.LatLng. 37 115)
-                        "zoom" 12}]
-    (js/google.maps.Map. map-canvas map-options)))
 
-(defn map-canvas
+(defn map-did-mount
+  [comp]
+  (let [map-canvas (.getElementById js/document "map")
+        map-options #js{"zoom" 12}
+        gmap (js/google.maps.Map. map-canvas map-options)]))
+
+(defn update-component
+  [comp gmap]
+  (let [{:keys [latitude longitude]} (r/props comp)
+        latlng (js/google.maps.LatLng. latitude longitude)]
+    (.setPosition (:marker @gmap) latlng)
+    (.panTo (:map @gmap) latlng)))
+
+
+(defn gmap-component
   []
-  [:div#map.map])
+  (let [gmap (r/atom nil)
+        options #js{"zoom" 15}
+        position (fn [geo]
+                   (dispatch [::events/current-position {:latitude geo.coords.latitude
+                                                         :longitude geo.coords.longitude}]))
+        update (fn [comp]
+                 (let [{:keys [latitude longitude]} (r/props comp)
+                       
+                       latlng (js/google.maps.LatLng. latitude longitude)]
+                  
+                   (.setPosition (:marker @gmap) latlng)
+                   (.panTo (:map @gmap) latlng)))]
+    (r/create-class
+     {:display-name "gmap-component"
+      :reagent-render (fn [] [:div#map.map])
+      :component-did-mount (fn [comp] (let [map-canvas (.getElementById js/document "map")
+                                            gm (js/google.maps.Map. map-canvas options)
+                                            marker (js/google.maps.Marker. #js{:map gm :title "You"})]
+                                        (js/navigator.geolocation.getCurrentPosition position)
+                                        (reset! gmap {:map gm :marker marker}))
+                             (update comp))
+      :component-did-update update})))
+
 
 (defn map-page
   []
-  (let [map-key (subscribe [::subs/map-key])]
-    (r/create-class
-     {:reagent-render map-canvas
-      :component-did-mount map-did-mount})))
+  (let [pos (subscribe [::subs/current-position])]
+    [gmap-component @pos]))
 

@@ -3,6 +3,6 @@
 
 
 (reg-sub
- ::map-key
+ ::current-position
  (fn [db _]
-   (:gmaps-api-key db)))
+   (:current-position db)))
