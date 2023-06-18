@@ -6,3 +6,8 @@
  ::current-position
  (fn [db _]
    (:current-position db)))
+
+(reg-sub 
+ ::trucks
+ (fn [db _]
+   (:trucks db)))

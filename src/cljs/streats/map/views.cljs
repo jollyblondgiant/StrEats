@@ -2,51 +2,48 @@
   (:require [streats.map.events :as events]
             [streats.map.subs :as subs]
             [reagent.core :as r]
-            [re-frame.core :refer [subscribe dispatch]]
-            [reagent-mui.material.container :refer [container]]
-            [reagent-mui.material.card :refer [card]]
-            [reagent-mui.material.card-media :refer [card-media]]))
+            [re-frame.core :refer [subscribe dispatch]]))
 
 
-
-(defn map-did-mount
-  [comp]
-  (let [map-canvas (.getElementById js/document "map")
-        map-options #js{"zoom" 12}
-        gmap (js/google.maps.Map. map-canvas map-options)]))
-
-(defn update-component
-  [comp gmap]
+(defn update-fn
+  [comp gmap] 
   (let [{:keys [latitude longitude]} (r/props comp)
-        latlng (js/google.maps.LatLng. latitude longitude)]
-    (.setPosition (:marker @gmap) latlng)
-    (.panTo (:map @gmap) latlng)))
+        latlng (js/google.maps.LatLng. latitude longitude)
+        you {:title "you" :coords {:lat latitude :lng longitude}}
+        trucks [{:title "Gato Peligroso"
+                 :coords {:lat  35.9447
+                          :lng -83.89041 }}];;@(subscribe [::subs/trucks])
+        markers (into [you] trucks)]
+    (doseq [{title :title {:keys [lat lng]} :coords} markers]
+      (js/google.maps.Marker. #js{:map @gmap :title title :position (js/google.maps.LatLng. lat lng)}))
+    (.panTo @gmap latlng)))
+
+
+(defn position-fn 
+  [geo]
+(dispatch [::events/current-position {:latitude geo.coords.latitude
+                                      :longitude geo.coords.longitude}]))
+
+
+(defn mount-fn
+  [comp gmap]
+  (let [map-canvas (.getElementById js/document "map")
+        options #js{"zoom" 15}
+        gm (js/google.maps.Map. map-canvas options)]
+    (dispatch [::events/get-trucks])
+    (js/navigator.geolocation.getCurrentPosition position-fn)
+    (reset! gmap gm))
+  (update-fn comp gmap))
 
 
 (defn gmap-component
   []
-  (let [gmap (r/atom nil)
-        options #js{"zoom" 15}
-        position (fn [geo]
-                   (dispatch [::events/current-position {:latitude geo.coords.latitude
-                                                         :longitude geo.coords.longitude}]))
-        update (fn [comp]
-                 (let [{:keys [latitude longitude]} (r/props comp)
-                       
-                       latlng (js/google.maps.LatLng. latitude longitude)]
-                  
-                   (.setPosition (:marker @gmap) latlng)
-                   (.panTo (:map @gmap) latlng)))]
+  (let [gmap (r/atom nil)]
     (r/create-class
      {:display-name "gmap-component"
       :reagent-render (fn [] [:div#map.map])
-      :component-did-mount (fn [comp] (let [map-canvas (.getElementById js/document "map")
-                                            gm (js/google.maps.Map. map-canvas options)
-                                            marker (js/google.maps.Marker. #js{:map gm :title "You"})]
-                                        (js/navigator.geolocation.getCurrentPosition position)
-                                        (reset! gmap {:map gm :marker marker}))
-                             (update comp))
-      :component-did-update update})))
+      :component-did-mount (fn [comp] (mount-fn comp gmap))
+      :component-did-update (fn [comp] (update-fn comp gmap))})))
 
 
 (defn map-page
