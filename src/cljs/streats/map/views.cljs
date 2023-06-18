@@ -7,16 +7,16 @@
 
 (defn update-fn
   [comp gmap] 
-  (let [{:keys [latitude longitude]} (r/props comp)
-        latlng (js/google.maps.LatLng. latitude longitude)
-        you {:title "you" :coords {:lat latitude :lng longitude}}
-        trucks [{:title "Gato Peligroso"
-                 :coords {:lat  35.9447
-                          :lng -83.89041 }}];;@(subscribe [::subs/trucks])
-        markers (into [you] trucks)]
-    (doseq [{title :title {:keys [lat lng]} :coords} markers]
-      (js/google.maps.Marker. #js{:map @gmap :title title :position (js/google.maps.LatLng. lat lng)}))
-    (.panTo @gmap latlng)))
+  (let [trucks [{:title "Gato Peligroso"
+                 :coords {:latitude  35.9447
+                          :longitude -83.89041 }}];;@(subscribe [::subs/trucks])
+        markers (into [{:title "you" :coords (r/props comp)}] trucks)]
+    (doseq [{title :title {:keys [latitude longitude]} :coords} markers]
+      (js/google.maps.Marker. #js{:map @gmap :title title :position (js/google.maps.LatLng. latitude longitude)})
+      ;;set map bound to include marker
+      )
+    
+    (.panTo @gmap (js/google.maps.LatLng. (:latitude (r/props comp)) (:longitude (r/props comp))))))
 
 
 (defn position-fn 
@@ -48,6 +48,7 @@
 
 (defn map-page
   []
-  (let [pos (subscribe [::subs/current-position])]
-    [gmap-component @pos]))
+  (let [pos (subscribe [::subs/current-position])
+        trucks (subscribe [::subs/trucks])]
+    [gmap-component @pos @trucks]))
 
