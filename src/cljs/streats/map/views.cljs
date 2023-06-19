@@ -25,6 +25,11 @@
                                       :longitude geo.coords.longitude}]))
 
 
+(defn handle-map-click
+  [event]
+  (js/console.log "click!" event))
+
+
 (defn mount-fn
   [comp gmap]
   (let [map-canvas (.getElementById js/document "map")
@@ -32,6 +37,7 @@
         gm (js/google.maps.Map. map-canvas options)]
     (dispatch [::events/get-trucks])
     (js/navigator.geolocation.getCurrentPosition position-fn)
+    (js/google.maps.event.addListener gm "click" handle-map-click)
     (reset! gmap gm))
   (update-fn comp gmap))
 
