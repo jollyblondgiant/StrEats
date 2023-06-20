@@ -1,7 +1,7 @@
 (ns streats.db.photo)
 
 (def photo
-  {:photo/filename 
+  {:photo/filename
    {:db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
     :db/doc "filename"}
@@ -9,8 +9,15 @@
    {:db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
     :db/doc "description or caption"}
-    ;; should we keep this generic or define that it can be one of truck or dish etc?
-    :photo/tag-id
-    {:db/valueType :db.type/uuid
-     :db/cardinality :db.cardinality/one
-     :db/doc "associated truck/dish/venue-id"}})
+   :photo/truck
+   {:db/valueType :db.type/ref
+    :db/cardinality :db.cardinality/one
+    :db/doc "associated truck-id"}
+   :photo/dish
+   {:db/valueType :db.type/ref
+    :db/cardinality :db.cardinality/one
+    :db/doc "associated dish-id"}
+   :photo/venue
+   {:db/valueType :db.type/ref
+    :db/cardinality :db.cardinality/one
+    :db/doc "associated venue-id"}})

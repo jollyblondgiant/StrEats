@@ -4,7 +4,7 @@
   {:menu/name
    {:db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
-    :db/doc "Truck Name"}
+    :db/doc "menu Name"}
    :menu/active?
    {:db/valueType :db.type/boolean
     :db/cardinality :db.cardinality/one
@@ -13,9 +13,10 @@
    {:db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
     :db/doc "Menu description"}
-   ;; should this include an collection of dishes? uuids or dishes?
-   ;; ought this to be a uuid or a full truck?
+   :menu/dishes
+   {:db/cardinality :db.cardinality/many
+    :db/valueType :db.type/ref}
    :menu/truck
-   {:db/valueType :db.type/uuid
+   {:db/valueType :db.type/ref
     :db/cardinality :db.cardinality/one
     :db/doc "ID of associated truck"}})

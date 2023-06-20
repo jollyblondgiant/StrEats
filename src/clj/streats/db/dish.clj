@@ -13,8 +13,19 @@
    {:db/valueType :db.type/float
     :db/cardinality :db.cardinality/one
     :db/doc "Dish Price"}
-   ;; shoudl this stay uuid or be a full menu?
-   :dish/menu-id
-   {:db/valueType :db.type/uuid
+   :dish/menu
+   {:db/valueType :db.type/ref
     :db/cardinality :db.cardinality/one
-    :db/doc "ID of associated Menu"}})
+    :db/doc "ID of associated Menu"}
+   :dish/photos
+   {:db/cardinality :db.cardinality/many
+    :db/valueType  :db.type/ref}
+   :dish/reviews
+   {:db/cardinality :db.cardinality/many
+    :db/valueType  :db.type/ref}
+   :dish/orders
+   {:db/cardinality :db.cardinality/many
+    :db/valueType  :db.type/ref}
+   :dish/favorites
+   {:db/cardinality :db.cardinality/many
+    :db/valueType  :db.type/ref}})

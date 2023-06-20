@@ -7,7 +7,9 @@
             [streats.db.favorite :refer [favorite]]
             [streats.db.review :refer [review]]
             [streats.db.order :refer [order]]
-            [streats.db.venue :refer [venue]]))
+            [streats.db.venue :refer [venue]]
+            [streats.db.dish :refer [dish]]
+            [streats.db.event :refer [event]]))
 
 
 (def schema 
@@ -18,7 +20,9 @@
    :favorite favorite
    :review review
    :order order
-   :venue venue})
+   :venue venue
+   :dish dish
+   :event event})
 
 
 (def streats 

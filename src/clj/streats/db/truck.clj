@@ -14,10 +14,26 @@
    {:db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
     :db/doc "Something Interesting about the truck"}
-   ;; should this be handled thus or like menus are?
    :truck/cuisine
    {:db/valueType :db.type/string
     :db/cardinality :db.cardinality/many
     :db/doc "a collection of string keywords for searching and filtering"}
-   ;;should we add a collection of menus here, or let menus refer to this?
+   :truck/menus
+   {:db/valueType :db.type/ref
+    :db/cardinality :db.cardinality/many}
+   :truck/reviews 
+   {:db/cardinality :db.cardinality/many
+    :db/valueType  :db.type/ref}
+   :truck/events
+   {:db/valueType :db.type/ref
+    :db/cardinality :db.cardinality/many}
+   :truck/photos
+   {:db/cardinality :db.cardinality/many
+    :db/valueType  :db.type/ref}
+   :truck/orders
+   {:db/cardinality :db.cardinality/many
+    :db/valueType  :db.type/ref}
+   :truck/favorites
+   {:db/cardinality :db.cardinality/many
+    :db/valueType  :db.type/ref}
    :truck/geolocation geolocation})

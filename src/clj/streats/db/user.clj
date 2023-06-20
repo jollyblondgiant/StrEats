@@ -16,4 +16,13 @@
    :user/avatar
    {:db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
-    :db/doc "the filename to the users's current avatar"}})
+    :db/doc "the filename to the users's current avatar"}
+   :user/favorites
+   {:db/valueType :db.type/ref
+    :db/cardinality :db.cardinality/many}
+   :user/reviews
+   {:db/cardinality :db.cardinality/many
+    :db/valueType  :db.type/ref}
+   :user/orders
+   {:db/cardinality :db.cardinality/many
+    :db/valueType  :db.type/ref}})
