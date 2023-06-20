@@ -1,0 +1,11 @@
+;; shadow-cljs configuration
+{:lein {:profile "+dev"}
+
+ :dev-http {9500 "resources/public"}
+ :devtools {:repl-init-ns streats.core
+            :repl-pprint true}
+ :builds
+ {:app {:target :browser
+        :output-dir "resources/public/js/app"
+        :asset-path "cljs-out/dev"
+        :modules {:main {:entries [streats.core]}}}}}

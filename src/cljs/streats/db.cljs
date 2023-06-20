@@ -22,14 +22,3 @@
                  :avatar "img/apollo.jpg"})
 
 
-(defn get-mapstring []
-  (async/go
-    (let [response (async/<! (http/get "http://localhost:3000/map"))]
-      (dispatch [:map-response response]))))
-
-(reg-event-db
- :map-response
- (fn [db [_ response]]
-   (-> db
-       (assoc  :gmaps-api-key (:body response))
-       (dissoc :loading))))

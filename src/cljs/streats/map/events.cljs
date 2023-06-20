@@ -1,22 +1,37 @@
 (ns streats.map.events
   (:require [re-frame.core :refer [reg-event-db reg-event-fx dispatch]]
             [goog.dom :as dom]
-            [goog.net.jsloader :as jsloader]))
+            [goog.net.jsloader :as jsloader]
+            [streats.db :as db]))
 
 
 (reg-event-db
- :init-map
+ ::current-position
+ (fn [db [_ pos]]
+   (assoc db :current-position pos)))
+
+
+(reg-event-db
+ ::set-trucks
+ (fn [db [_ res]]
+   (prn "fetched trucks. adding to db")
+   (-> db
+       (dissoc :loading)
+       (assoc :trucks []))))
+
+
+(reg-event-db
+ ::get-trucks
  (fn [db _]
-   (jsloader/load (:gmaps-api-string db) ; Replace YOUR_API_KEY with your actual API key
-                  (fn []
-                    (let [Map (.Map js/google.maps (dom/getElement "map"))
-                          options {:center {:lat -34.397 :lng 150.644}
-                                   :zoom 8}
-                          map-instance (Map (dom/getElement "map") options)]
-                      (dispatch [:set-map map-instance]))))
- db))
+   (prn "fetching trucks based on search filters and client geolocation...")
+   (assoc db :loading true)
+   (dispatch [::set-trucks nil])))
+
 
 (reg-event-db
- :set-map
- (fn [db [_ map-instance]]
-   (assoc db :map map-instance)))
+ ::add-filter
+ (fn [db [_ filters]]
+   (assoc db :filters filters)))
+
+
+

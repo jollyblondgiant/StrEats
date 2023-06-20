@@ -3,17 +3,14 @@ prerequisites:
   - leiningen
   - node, npm & npx
 
+on first startup:
+  - npm install
+
 to start:
-npm install
-lein run
-
+shadow-cljs watch app
 in a new terminal:
-
-lein fig
-
-DEVELOPMENT:
-first terminal: lein repl
-new terminal: lein figwheel
+lein dev  -- starts the server on port 3000 (or whatever you configure in local config.edn)
+open browser window to localhost:{{port}}
 
 TODO:
 pages layouts:
@@ -35,3 +32,10 @@ server: get trucks
 server: get truck by id
 server: add truck to favorites
 client: setup styles
+truck view
+
+
+should many-to-one relationships be defined with a ref in the parent datum?
+or should they be defined as a uuid of parent datum in child data?
+or should they be defined as ref of parent datum in child data?
+

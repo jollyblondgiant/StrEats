@@ -20,12 +20,11 @@
 (reg-event-db 
  :init-db
  (fn [_ _]
-   (db/get-mapstring)
    {:loading true}))
 
 
 (defn -main []
-  (dispatch [:init-db])
+  ;;(dispatch [:init-db])
   (rdom/render [index] (js/document.getElementById "app")))
 
 (-main)

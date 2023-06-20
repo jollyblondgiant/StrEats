@@ -1,13 +1,14 @@
 (ns streats.routes
-  (:require  [reitit.ring :refer [router ring-handler create-default-handler]]
-             [streats.maps.handler :refer [map-handler]]
-            ; [ring.middleware.cors :refer [wrap-cors]]
-             #_[ring.util.http-response :refer [ok]]))
+  (:require  [reitit.ring :refer [router ring-handler create-default-handler create-resource-handler]]
+             [streats.index.handler :refer [index-handler]]
+             [streats.trucks.handler :refer [trucks-handler]]))
 
 
-(def app-routes 
+(def app-routes
   (ring-handler
    (router
-    [["/" 
-      ["map" {:get {:handler map-handler}}]]])
+    [["/" index-handler] 
+     ["/api"
+      ["/trucks" trucks-handler]]]
+    ["/resources/public/*" (create-resource-handler)])
    (create-default-handler)))
