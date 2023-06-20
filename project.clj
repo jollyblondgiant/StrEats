@@ -15,6 +15,7 @@
                  [ring/ring-jetty-adapter "1.10.0"]
                  [cheshire "5.11.0"]
                  [hiccup "1.0.5"]
+                 [datascript "1.4.2"]
 
                  ;;client deps
                  [reagent "1.2.0"]

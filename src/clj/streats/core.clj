@@ -22,7 +22,7 @@
 
 (defn -main
   [& _]
-  (let [port (Integer. (:server-port env 3000))]
+  (let [port (Integer. (:server-port env 3000))] 
     (-> app-routes
         wrap-cors*
         (wrap-resource "public")

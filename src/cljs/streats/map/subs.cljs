@@ -11,3 +11,8 @@
  ::trucks
  (fn [db _]
    (:trucks db)))
+
+(reg-sub
+ ::filters
+ (fn [db _]
+   (:filters db #{})))

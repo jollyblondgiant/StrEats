@@ -28,3 +28,10 @@
    (dispatch [::set-trucks nil])))
 
 
+(reg-event-db
+ ::add-filter
+ (fn [db [_ filters]]
+   (assoc db :filters filters)))
+
+
+
